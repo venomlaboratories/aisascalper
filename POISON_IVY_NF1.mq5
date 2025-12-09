@@ -290,7 +290,8 @@ double GetOpen(int index) {
     ArraySetAsSeries(open, true);
     if(CopyOpen(_Symbol, PERIOD_CURRENT, index, 1, open) > 0)
         return open[0];
-    return INIT_SUCCEEDED;
+    Print("GetOpen() failed for index ", index);
+    return 0.0; // Return 0 on error - maintains MT4 behavior
 }
 
 double GetClose(int index) {
@@ -298,7 +299,8 @@ double GetClose(int index) {
     ArraySetAsSeries(close, true);
     if(CopyClose(_Symbol, PERIOD_CURRENT, index, 1, close) > 0)
         return close[0];
-    return INIT_SUCCEEDED;
+    Print("GetClose() failed for index ", index);
+    return 0.0; // Return 0 on error - maintains MT4 behavior
 }
 
 // Market Info wrapper
@@ -316,7 +318,9 @@ double MarketInfo(string symbol, int type) {
         case 10: return SymbolInfoDouble(symbol, SYMBOL_ASK); // MODE_ASK
         case 12: return SymbolInfoDouble(symbol, SYMBOL_POINT); // MODE_POINT
         case 13: return (double)SymbolInfoInteger(symbol, SYMBOL_DIGITS); // MODE_DIGITS
-        default: return INIT_SUCCEEDED;
+        default: 
+            Print("MarketInfo: Unknown mode type ", type);
+            return 0.0; // Return 0 for unknown types - maintains MT4 behavior
     }
 }
 
@@ -405,7 +409,7 @@ datetime OrderOpenTime() { return (datetime)PositionGetInteger(POSITION_TIME); }
 
 // History functions
 int HistoryTotal() {
-    if(!HistorySelect(0, TimeCurrent())) return INIT_SUCCEEDED;
+    if(!HistorySelect(0, TimeCurrent())) return 0;
     return HistoryDealsTotal();
 }
 
@@ -504,106 +508,160 @@ double AccountFreeMarginCheck(string symbol, int cmd, double volume) {
 
 
 // Global variables (from original MT4)
-double
-int
-double
-int
-int
-int
-double
-double
-double
-long
-double
-double
-long
-int
-int
-int
-int
-double
-int
-long
-int
-int
-int
-int
-double
-int
-int
-int
-int
-int
-int
-double
-int
-int
-int
-double
-int
-int
-int
-double
-int
-int
-int
-double
-int
-double
-int
-int
-int
-int
-int
-int
-int
-int
-int
-int
-int
-int
-int
-int
-int
-double
-double
-double
-double
-bool
-double
-double
-int
-bool
-double
-int
-double
-bool
-int
-double
-bool
-int
-bool
-double
-int
-int
-bool
-double
-int
-string
-int
-double
-int
-bool
-double
-int
-double
-double
-int
-bool
-double
-int
-double
-int
+double Gd_00000;
+int Gi_00001;
+double Gd_00002;
+int Gi_00003;
+int Ii_00050;
+int Gi_00004;
+double Ind_004;
+double Ind_000;
+double Gd_00004;
+long Gl_00004;
+double Gd_00001;
+double Gd_00003;
+long Gl_00005;
+int Gi_00006;
+int Gi_00007;
+int Gi_00008;
+int Gi_00009;
+double Gd_0000A;
+int Gi_0000B;
+long Gl_0000C;
+int Gi_0000D;
+int Gi_0000E;
+int Gi_0000F;
+int Gi_00010;
+double Gd_00011;
+int Gi_00012;
+int Gi_00013;
+int Gi_00014;
+int Gi_00015;
+int Gi_00016;
+int Gi_00017;
+double Gd_00018;
+int Gi_00019;
+int Gi_0001A;
+int Gi_0001B;
+double Gd_0001C;
+int Gi_0001D;
+int Gi_0001E;
+int Gi_0001F;
+double Gd_00020;
+int Gi_00021;
+int Gi_00022;
+int Gi_00023;
+double Gd_00024;
+int Gi_00025;
+double Gd_00026;
+int Gi_00027;
+int Gi_00028;
+int Gi_00029;
+int Gi_0002A;
+int Gi_0002B;
+int Gi_0002C;
+int Gi_0002D;
+int Gi_0002E;
+int Gi_0002F;
+int Gi_00030;
+int Gi_00031;
+int Gi_00032;
+int Gi_00033;
+int Gi_00034;
+int Gi_00035;
+double Gd_00036;
+double Gd_00037;
+double Ind_002;
+double Id_00040;
+bool Gb_00037;
+double Id_00060;
+double Id_00058;
+int Gi_00037;
+bool Gb_00038;
+double Gd_00038;
+int Gi_00038;
+double Gd_00039;
+bool Gb_00039;
+int Gi_00039;
+double Gd_0003A;
+bool Gb_0003A;
+int Gi_0003A;
+bool Gb_0003B;
+double Gd_0003B;
+int Gi_0003B;
+int Gi_0003C;
+bool Gb_0003D;
+double Gd_0003C;
+int Gi_0003D;
+string Is_00018;
+int Ii_0004C;
+double Gd_0003D;
+int Gi_0003E;
+bool Gb_0003F;
+double Gd_0003E;
+int Gi_0003F;
+double Gd_0003F;
+double Id_00068;
+int Gi_00040;
+bool Gb_00041;
+double Gd_00040;
+int Gi_00041;
+double Gd_00041;
+int Gi_00042;
+bool Gb_00042;
+double Gd_00042;
+int Gi_00043;
+bool Gb_00044;
+double Gd_00043;
+int Gi_00044;
+double Gd_00044;
+int Gi_00045;
+bool Gb_00045;
+double Gd_00045;
+double Id_00070;
+double Gd_00046;
+int Gi_00047;
+double Gd_00047;
+double Gd_00048;
+int Gi_00049;
+double Gd_00049;
+bool Gb_00049;
+double Gd_0004A;
+int Gi_0004B;
+double Gd_0004B;
+double Gd_0004C;
+int Gi_0004D;
+bool Gb_0004D;
+double Gd_0004D;
+double Gd_0004E;
+int Gi_0004F;
+double Gd_0004F;
+double Gd_00050;
+int Gi_00051;
+double Gd_00051;
+bool Gb_00051;
+double Gd_00052;
+int Gi_00053;
+double Gd_00053;
+double Gd_00054;
+int Gi_00055;
+bool Ib_00000;
+long Gl_00055;
+int Ii_0000C;
+int Ii_00010;
+int Ii_00004;
+int Ii_00008;
+int Ii_0002C;
+int Ii_00024;
+int Ii_00030;
+int Ii_00028;
+int Gi_00000;
+long Gl_00000;
+int Ii_00034;
+int Ii_00038;
+int Ii_00048;
+double returned_double;
+bool order_check;
 
 // Helper Functions
 bool CheckMoneyForTrade(string symb,double lots,int type){
